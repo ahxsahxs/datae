@@ -1,0 +1,22 @@
+#userInfo span{	
+	font-size: 0.85rem;
+}
+nav.menu{
+	background: #FFF;
+	transition: all 0.5s;
+}
+
+form#formBusca{
+	background: none;
+}
+
+form#formBusca button{
+	background: none;
+	border: none;
+}
+
+div#conteudo{
+	width: 80%;
+	margin: 0 auto;
+}
+

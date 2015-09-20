@@ -1,0 +1,31 @@
+Esta pasta contém outras pastas que possuem os formulários e outras páginas de interface
+A estrutura é a seguinte:
+
+***************************
+public
+	pages
+		alunos
+		|
+		cursos
+		|
+		index
+		|
+		turmas
+		|
+		usuarios
+		|	
+	footer.php
+***************************
+
+Nesta pasta PAGES se localizam as pastas ALUNOS, CURSOS, INDEX, TURMAS e USUARIOS.
+
+Cada uma destas pastas guarda os arquivos necessários para a visualização
+de uma ação do site, por exemplo:
+	A pasta ALUNOS, guarda os formulários para criação e edição de alunos
+	A pasta TURMAS, guarda os formulários para criação e edição de turmas
+	A pasta CURSOS, guarda os formulários para criação e edição de cursos
+	...
+Além disso cada pasta tem uma subpasta chamada HEAD, que guarda scripts e folhas
+de estilo que serão carregadas na chamada daquela ação
+
+Abra qualquer arquivo localizado em alguma pasta HEAD para continuar.

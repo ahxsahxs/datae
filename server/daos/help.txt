@@ -1,0 +1,10 @@
+Breve explicação do que é um DAO:
+	DAO (Data Access Object) é um objeto que manipula os controllers, de forma
+	a executar as instruções contidas neles alterando o banco de dados.
+	De certa forma o DAO é quem executa os métodos, enquanto o controller é quem
+	define os métodos
+	
+Neste site os DAOs não foram desenvolvidos usando Orientação a Objeto para
+simplificação do entendimento
+
+Todos os arquivos desta pasta estão comentados, abra-os e siga em frente!

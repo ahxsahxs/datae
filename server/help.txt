@@ -1,0 +1,54 @@
+Esta pasta contém os arquivos necessários para o correto processamento das informações no
+servidor.
+A estrutura é a seguinte:
+
+***************************
+Datae
+	public
+		anexos
+		|
+		head
+		|
+		pages
+		|
+		footer.php
+		header.php
+		painel.php
+	server
+		classes
+		|
+		controllers
+		|
+		daos
+		|
+		entidades
+		|
+		helpers
+		|
+	index.php
+***************************
+
+Nesta pasta SERVER se localizam as pastas CLASSES, CONTROLLERS, DAOS, ENTIDADES e HELPERS.
+Suas funções são:
+	CLASSES:
+		Guarda arquivos de classes genéricas para manipulação do sistema, por exemplo, um arquivo para conexão com o banco de dados ou um arquivo para criar sessões no
+		navegador.
+
+	CONTROLLERS:
+		Guarda os arquivos de classes para manipulação das tabelas do banco de dados, isto é,
+		utilizam uma conexão com o banco para fazer alterações neste.
+
+	DAOS:
+		Guarda arquivos que servem como uma ponte entre a interface do usuário e os
+		CONTROLLERS, ou seja, é em um arquivo DAO que os métodos do respectivo CONTROLLER
+		são chamados
+
+	ENTIDADES:
+		Guarda arquivos de classes que representam diretamente uma tabela do banco de dados,
+		possuindo as informações que estão ou serão gravadas no banco.
+
+	HELPERS:
+		Arquivos genéricos que guardam códigos HTML repetitivos, que podem ser chamados para
+		diminuir a quantidade de linhas em cada arquivo.
+
+Abra qualquer pasta para continuar.

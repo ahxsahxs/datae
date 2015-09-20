@@ -1,0 +1,43 @@
+Esta pasta contém os arquivos necessários para a exibição das interfaces do sistema
+A estrutura é a seguinte:
+
+***************************
+Datae
+	public
+		anexos
+		|
+		head
+		|
+		pages
+		|
+		footer.php
+		header.php
+		painel.php
+	server
+		classes
+		|
+		controllers
+		|
+		daos
+		|
+		entidades
+		|
+		helpers
+		|
+	index.php
+***************************
+
+Nesta pasta PUBLIC se localizam as pastas ANEXOS, HEAD e PAGES.
+Suas funções são:
+	ANEXOS:
+		Guarda os arquivos de bibliotecas externas ao sistema, como jQuery, jQuery Ui e
+		Kube Framework.
+
+	HEAD:
+		Guarda scripts e folhas de estilo da página index do site.
+
+	PAGES:
+		Guarda várias pastas com os arquivos de interface do sistema, é aqui que ficam os
+		formulários e outros arquivos do site.
+
+Abra a pasta PAGES para continuar.
