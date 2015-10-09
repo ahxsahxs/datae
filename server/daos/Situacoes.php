@@ -13,12 +13,9 @@ $action = $_GET['action'];
 if(isset($_GET['id'])) $id = $_GET['id'];
 else if(isset($_POST['id'])) $id = $_POST['id'];
 
-
 if(!$u = $session->getVars('usuario')) exit("É necessário fazer login");
-if(($action =='insert' || $action =='edit' || $action =='delete') && $u['nivel']<2)
+if(($action =='insert' || $action =='edit' || $action =='delete') && $u['nivel']>2)
 	exit("Você não possui privilégios para essa operação");
-
-
 
 switch ($action){
 	// caso a ação seja de inserir novo Situacoes
@@ -85,6 +82,7 @@ switch ($action){
 		$control = SituacaoController::getInstance();
 		// busca no banco informações de todos os Situacoess
 		$situacoes = $control->find([],0);
+		if($situacoes == false) exit();
 		// para cada Situacoes crie um modelo usando o seu id e imprima seus valores em colunas de uma tabela
 		foreach ($situacoes as $situacao) {
 			$model = $control->fill($situacao->id);

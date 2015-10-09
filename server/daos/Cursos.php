@@ -15,13 +15,12 @@ else if(isset($_POST['id'])) $id = $_POST['id'];
 
 
 if(!$u = $session->getVars('usuario')) exit("É necessário fazer login");
-if(($action =='insert' || $action =='edit' || $action =='delete') && $u['nivel']<2)
+if(($action =='insert' || $action =='edit' || $action =='delete') && $u['nivel']>2)
 	exit("Você não possui privilégios para essa operação");
 
 switch ($action){
 	// caso a ação seja de inserir novo Curso
 	case 'insert':
-		print_r($_POST);
 		// cria um controller de Curso
 		$controlCurso = CursoController::getInstance();
 		// cria um modelo de Curso com valores existentes no banco
@@ -45,7 +44,7 @@ switch ($action){
 
 	case 'doc':
 		require_once "../classes/Upload.class.php";
-		$file = new Upload($_FILES['file']);
+		$file = new upload($_FILES['file']);
 		if($file->uploaded){
 			$r = $_SERVER['DOCUMENT_ROOT'];
 
@@ -78,7 +77,7 @@ switch ($action){
 	case 'getDoc':
 		require_once "../classes/Upload.class.php";
 		$link = $_SERVER['DOCUMENT_ROOT'].'/public/uploads/docCurso'.$id.'.pdf';
-		$file = new Upload($link);
+		$file = new upload($link);
 		header("Content-type: ".$file->file_src_mime);
 		echo $file->Process();
 		break;
@@ -124,6 +123,7 @@ switch ($action){
 		$control = CursoController::getInstance();
 		// busca no banco informações de todos os Cursos
 		$cursos = $control->find([],0);
+		if($cursos == false) exit();
 		// para cada Curso crie um modelo usando o seu id e imprima seus valores em colunas de uma tabela
 		foreach ($cursos as $curso) {
 			$model = $control->fill($curso->id);

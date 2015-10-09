@@ -29,11 +29,12 @@ class EtniaController extends Controller{
 	// o método fill() recebe um identificador de um registro no banco,
 	// e retorna um modelo com os valores existentes no banco
 	public function fill($id){
-		// cria um controller de Etnia
-		$controlUsuario = self::getInstance();
+		// cria um controller de Tipo
+		$control = self::getInstance();
 		// procura os valores salvos no banco com este 'id'
-		$dados = $controlUsuario->find(['id'=>$id]);
-		// cria um novo modelo de Etnia
+		$dados = $control->find(['id'=>$id]);
+		if($dados == false) return false;
+		// cria um novo modelo de 
 		$model = new EtniaModel();
 
 		// para cada campo de  define o valor que está no banco

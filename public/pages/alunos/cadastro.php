@@ -87,6 +87,20 @@
 				</div>
 			</div>
 		</div>
+		<div class="units-row c">
+			<div class="unit-100">
+				<div class="input-groups">
+					<span class="input-prepend">Status</span>
+					<select class='nivel width-100' has='statusId'>
+						<?php
+						foreach ($status as $statu): ?>
+							<option value='<?= $status->id ?>'><?= $status->nome ?></option>;
+				  <?php endforeach;
+						?>
+					</select>
+				</div>
+			</div>
+		</div>
 		<div class="units-row">
 			<div class="unit-100">
 				<input type='submit' class="btn btn-outline btn-blue width-100" value='Cadastrar'>

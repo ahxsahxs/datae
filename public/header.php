@@ -18,6 +18,7 @@
 					<li><a href="cursos">Cursos</a></li>
 					<li><a href="ciclos">Ciclos de Matrícula</a></li>
 					<li><a href="alunos">Alunos</a></li>
+					<li><a href="ferramentas/importar">Relatórios</a></li>
 					<li>
 						<form id='formBusca' action="ferramentas/busca" method="post">
 							<input type="text" name='q' class="left">

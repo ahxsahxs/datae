@@ -5,6 +5,7 @@
 
 require_once 'Controller.class.php';
 require_once 'SituacaoController.class.php';
+require_once 'StatusController.class.php';
 require_once 'EtniaController.class.php';
 require_once 'CicloController.class.php';
 require_once $raiz.'/server/models/AlunoModel.class.php';
@@ -18,8 +19,8 @@ class AlunoController extends Controller{
 	protected function __construct(){
 		$this->tableName = "aluno";
 		$this->campos = ['id','cpf','rg','dataNascimento','naturalidade','filiacaoPai','filiacaoMae',
-			'endereco','cidade','estado','pais','telefone','email','nome','cicloId','situacaoId','etniaId'];
-		$this->camposInsert = ['cpf','rg','nome','dataNascimento','email','cicloId','etniaId','situacaoId'];
+			'endereco','cidade','estado','pais','telefone','email','nome','statusId','cicloId','situacaoId','etniaId'];
+		$this->camposInsert = ['cpf','rg','nome','statusId','dataNascimento','email','cicloId','etniaId','situacaoId'];
 	}
 
 	// o método getInstance() verfica se já existe um controller de Aluno,
@@ -35,6 +36,7 @@ class AlunoController extends Controller{
 	public function fill($id){
 		$control = self::getInstance();
 		$dados = $control->find(['id'=>$id]);
+		
 		$model = new AlunoModel();
 
 		foreach($this->campos as $coluna)
@@ -43,10 +45,12 @@ class AlunoController extends Controller{
 		$ciclo = CicloController::getInstance()->fill($model->getCicloId());
 		$etnia = EtniaController::getInstance()->fill($model->getEtniaId());
 		$situacao = SituacaoController::getInstance()->fill($model->getSituacaoId());
+		$status = StatusController::getInstance()->fill($model->getStatusId());
 
 		$model->setCiclo($ciclo);
 		$model->setEtnia($etnia);
 		$model->setSituacao($situacao);
+		$model->setStatus($status);
 
 		return $model;
 	}

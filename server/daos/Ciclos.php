@@ -13,12 +13,9 @@ $action = $_GET['action'];
 if(isset($_GET['id'])) $id = $_GET['id'];
 else if(isset($_POST['id'])) $id = $_POST['id'];
 
-
 if(!$u = $session->getVars('usuario')) exit("É necessário fazer login");
-if(($action =='insert' || $action =='edit' || $action =='delete') && $u['nivel']<2)
+if(($action =='insert' || $action =='edit' || $action =='delete') && $u['nivel']>2)
 	exit("Você não possui privilégios para essa operação");
-
-
 
 switch ($action){
 	// caso a ação seja de inserir novo Ciclo
@@ -38,7 +35,7 @@ switch ($action){
 		if($erro = $modelCiclo->valida()){
 			print(json_encode($erro));
 		}else{
-			if($controlCiclo->insert($modelCiclo)) print 1;
+			print $controlCiclo->insert($modelCiclo);
 		}
 		
 		break;
@@ -84,6 +81,7 @@ switch ($action){
 		$control = CicloController::getInstance();
 		// busca no banco informações de todos os Ciclos
 		$ciclos = $control->find([],0);
+		if($ciclos == false) exit();
 		// para cada Ciclo crie um modelo usando o seu id e imprima seus valores em colunas de uma tabela
 		foreach ($ciclos as $ciclo) {
 			$model = $control->fill($ciclo->id);

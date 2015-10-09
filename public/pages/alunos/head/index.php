@@ -51,39 +51,86 @@ function delSituacao(){
 		geraDialog("Tem certeza que deseja excluir esta Situacao Socioeconomica?","Excluir Situacao",botoes);
 	});
 }
-function reloadAlunos(){
-	$.post(
-		'api/Alunos/list',
+function delStatus(){
+	$('#tableStatus tbody a.del').click(function(evt){
+		evt.preventDefault();
+		var link = $(this).attr('href');
+		botoes = {
+				"Sim": function(){
+					$.get( link, {}, function(ret){ reloadStatus() } );
+					$(this).dialog('close');
+				},
+				"Não": function(){
+					$(this).dialog('close');
+				}
+			}
+		geraDialog("Tem certeza que deseja excluir este Status?","Excluir Status",botoes);
+	});
+}
+
+
+
+
+function reloadEtnias(link){
+	if(link.substr(0,16) != "api/Buscas/busca" ) return false;
+	$.get(
+		link,
 		{},
 		function(ret){
-			$('#tableAlunos tbody').html(ret);
-			delAluno();
+			$('#tableEtnias').html(ret);
+			$('#tableEtnias .pagination a').click(function(evt){
+				evt.preventDefault();
+				reloadEtnias($(this).attr('href'));
+			});
+		}
+	)
+}
+function reloadSituacoes(link){
+	if(link.substr(0,16)!= "api/Buscas/busca" ) return false;
+	$.get(
+		link,
+		{},
+		function(ret){
+			$('#tableSituacoes').html(ret);
+			$('#tableSituacoes .pagination a').click(function(evt){
+				evt.preventDefault();
+				reloadSituacoes($(this).attr('href'));
+			});
+		}
+	)
+}
+function reloadStatus(link){
+	if(link.substr(0,16)!= "api/Buscas/busca" ) return false;
+	$.get(
+		link,
+		{},
+		function(ret){
+			$('#tableStatus').html(ret);
+			$('#tableStatus .pagination a').click(function(evt){
+				evt.preventDefault();
+				reloadStatus($(this).attr('href'));
+			});
 		}
 	);
 }
-function reloadSituacoes(){
-	$.post(
-		'api/Situacoes/list',
+function reloadAlunos(link){
+	if(link.substr(0,16)!= "api/Buscas/busca" ) return false;
+	$.get(
+		link,
 		{},
 		function(ret){
-			$('#tableSituacoes tbody').html(ret);
-			delSituacao();
+			$('#tableAlunos').html(ret);
+			$('#tableAlunos .pagination a').click(function(evt){
+				evt.preventDefault();
+				reloadAlunos($(this).attr('href'));
+			});
 		}
-	);
-}
-function reloadEtnias(){
-	$.post(
-		'api/Etnias/list',
-		{},
-		function(ret){
-			$('#tableEtnias tbody').html(ret);
-			delEtnia();
-		}
-	);
+	)
 }
 $(function(){
-	reloadEtnias();
-	reloadAlunos();
-	reloadSituacoes();
+	reloadEtnias('api/Buscas/busca/Etnia/1');
+	reloadAlunos('api/Buscas/busca/Aluno/1');
+	reloadSituacoes('api/Buscas/busca/Situacao/1');
+	reloadStatus('api/Buscas/busca/Status/1');
 });
 </script>

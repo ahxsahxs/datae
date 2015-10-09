@@ -18,7 +18,7 @@ class Controller{
 	protected $camposInsert;
 	
 	// Cria uma string com o comando SQL que será utilizado
-	protected function geraSQL($acao,$valores,$limit=1,$incl=' AND ',$type='='){
+	protected function geraSQL($acao,$valores=[],$limit=1,$incl=' AND ',$type='='){
 		$acao = strtolower($acao);
 		$sql = '';
 		switch ($acao){
@@ -51,12 +51,27 @@ class Controller{
 				break;
 			case 'find':
 				// se $acao == 'select' $sql = "SELECT * FROM $nomeTabela WHERE coluna =/LIKE :coluna"
-				$sql = "SELECT * FROM ".$this->tableName." WHERE ";
+				$sql = "SELECT * FROM ".$this->tableName;
+				if(count($valores)> 0) $sql .= " WHERE ";
+				$i=0; $len = count($valores);
 				foreach($valores as $coluna=>$valor){
-					$sql .= $coluna.' '.$type.' :'.$coluna.$incl;
+					$sql .= $coluna.' '.$type.' :'.$coluna;
+					if($i != $len-1) $sql.=$incl;
+					$i++;
 				}
-				$sql .= ' 1';
-				if($limit>0) $sql.= ' LIMIT '. $limit;
+				if($limit) $sql.= ' LIMIT '. $limit;
+				break;
+			case 'count':
+				$sql = "SELECT COUNT(*) FROM ".$this->tableName;
+				if(count($valores)> 0){
+					$sql .= " WHERE ";
+					$i=0; $len = count($valores);
+					foreach ($valores as $coluna=>$valor){
+						$sql .= $coluna.' '.$type.' :'.$coluna;
+						if($i != $len-1) $sql.=$incl;
+						$i++;
+					}
+				}
 				break;
 		}
 		return $sql;
@@ -80,7 +95,8 @@ class Controller{
 
 			// se houver erros retorne o texto do erro, caso contrário retorne o id que foi inserido
 			if($pdo->errorInfo()[2] != false){
-				return $pdo->errorInfo()[2];
+				// return $pdo->errorInfo()[2];
+				return -1;
 			}else {
 				return Connection::getInstance()->lastInsertId();
 			}
@@ -96,14 +112,16 @@ class Controller{
 
 		// cria um comando sql para fazer a busca
 		$sql = $this->geraSQL('find', $colunas,$limit,$incl,$type);
-
+		
 		// cria uma instancia do banco e prepara um comando
 		$pdo = Connection::getInstance()->prepare($sql);
 
 		// define os valores de cada coluna
-		foreach($colunas as $coluna=>$valor)
+		foreach($colunas as $coluna=>$valor){
+			if($type == 'like' || $type == ' like ') $valor = "%$valor%";
 			$pdo->bindValue(":{$coluna}",$valor);
-
+		}
+		
 		// executa o comando
 		$pdo->execute();
 		
@@ -150,7 +168,20 @@ class Controller{
 			$pdo->bindValue(":$valor",$model->{'get'.ucfirst($valor)}());
 		
 		// executa o comando, se der certo retorna TRUE, se não, retorna FALSE
-		return $pdo->execute();
+		if($pdo->execute()) return true;
+		else return $pdo->errorInfo()[2];
+// 		else return false;
 	}
 
+	public function count($colunas,$incl='AND',$type='='){
+		$sql = $this->geraSQL('count',$colunas);
+		$pdo = Connection::getInstance()->prepare($sql);
+		foreach($colunas as $coluna=>$valor){
+			if($type == 'like' || $type == ' like ') $valor = "%$valor%";
+			$pdo->bindValue(":{$coluna}",$valor);
+		}
+		$pdo->execute();
+		$result = $pdo->fetch(PDO::FETCH_ASSOC);
+		return ($result['COUNT(*)']);
+	}
 }

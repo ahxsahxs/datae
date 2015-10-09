@@ -33,6 +33,7 @@ class TipoController extends Controller{
 		$control = self::getInstance();
 		// procura os valores salvos no banco com este 'id'
 		$dados = $control->find(['id'=>$id]);
+		if($dados == false) return false;
 		// cria um novo modelo de 
 		$model = new TipoModel();
 

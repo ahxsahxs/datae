@@ -9,6 +9,7 @@
 	$situacoes = SituacaoController::getInstance()->find([],0);
 	$ciclos = CicloController::getInstance()->find([],0);
 	$etnias = EtniaController::getInstance()->find([],0);
+	$status = StatusController::getInstance()->find([],0);
 ?>
 <link rel="stylesheet" href="/public/anexos/externo/jquery-ui/jquery-ui.min.css">
 <link rel="stylesheet" href="/public/anexos/externo/jquery-ui/jquery-ui.theme.min.css">

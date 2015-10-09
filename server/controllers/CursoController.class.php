@@ -35,6 +35,7 @@ class CursoController extends Controller{
 		$controlUsuario = self::getInstance();
 		// procura os valores salvos no banco com este 'id'
 		$dados = $controlUsuario->find(['id'=>$id]);
+		if($dados == false) return false;
 		// cria um novo modelo de Curso
 		$model = new CursoModel();
 

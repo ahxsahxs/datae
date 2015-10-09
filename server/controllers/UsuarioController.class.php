@@ -46,6 +46,7 @@ class UsuarioController extends Controller{
 		$controlUsuario = self::getInstance();
 		// procura os valores salvos no banco com este 'id'
 		$dados = $controlUsuario->find(['id'=>$id],1);
+		if($dados == false) return false;
 		// cria um novo modelo de Usuário
 		$model = new UsuarioModel();
 

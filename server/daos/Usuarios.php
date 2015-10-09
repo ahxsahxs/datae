@@ -19,7 +19,6 @@ if($action != 'login'){
 		exit("Você não possui privilégios para essa operação");
 }
 
-
 switch ($action){
 	// caso a ação seja de inserir novo Usuario
 	case 'insert':
@@ -78,7 +77,10 @@ switch ($action){
 		// deleta o usuario
 		print ($control->delete($model));
 
-		if($session->getVars('usuario')['id'] == $id) $session->destroy();
+		if($session->getVars('usuario')['id'] == $id){
+			$session->destroy();
+			print "<script>location.href = 'index/index';</script>";
+		}
 		break;
 
 	case 'login':
@@ -107,6 +109,7 @@ switch ($action){
 		$control = UsuarioController::getInstance();
 		// busca no banco informações de todos os usuarios
 		$usuarios = $control->find([],0);
+		if($usuarios == false) exit();
 		// para cada usuario crie um modelo usando o seu id e imprima seus valores em colunas de uma tabela
 		foreach ($usuarios as $usuario) {
 			$model = $control->fill($usuario->id);

@@ -2,9 +2,11 @@
 	include 'server/controllers/EtniaController.class.php';
 	include 'server/controllers/SituacaoController.class.php';
 	include 'server/controllers/CicloController.class.php';
+	include 'server/controllers/StatusController.class.php';
 	$etnias = EtniaController::getInstance()->find([],0);
 	$situacoes = SituacaoController::getInstance()->find([],0);
 	$ciclos = CicloController::getInstance()->find([],0);
+	$status = StatusController::getInstance()->find([],0);
 	
 ?>
 

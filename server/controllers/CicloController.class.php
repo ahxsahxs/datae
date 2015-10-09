@@ -34,6 +34,7 @@ class CicloController extends Controller{
 		$controlUsuario = self::getInstance();
 		// procura os valores salvos no banco com este 'id'
 		$dados = $controlUsuario->find(['id'=>$id]);
+		
 		// cria um novo modelo de Ciclo
 		$model = new CicloModel();
 

@@ -18,12 +18,14 @@ class AlunoModel{
 	private $telefone;
 	private $email;
 	private $nome;
+	private $statusId;
 	private $cicloId;
 	private $situacaoId;
 	private $etniaId;
 	private $ciclo;
 	private $etnia;
 	private $situacao;
+	private $status;
 
 	public function getId(){
 		return $this->id;
@@ -153,6 +155,14 @@ class AlunoModel{
 		$this->situacaoId = $situacaoId;
 	}
 
+	public function getStatusId(){
+		return $this->statusId;
+	}
+
+	public function setStatusId($statusId){
+		$this->statusId = $statusId;
+	}
+
 	public function getEtniaId(){
 		return $this->etniaId;
 	}
@@ -185,6 +195,13 @@ class AlunoModel{
 		$this->situacao = $situacao;
 	}
 
+	public function getStatus(){
+		return $this->status;
+	}
+
+	public function setStatus($status){
+		$this->status = $status;
+	}
 
 	private function validaCampo($campo,$validacao,$restricao){
 		if(!isset($this->{$campo})) return false;
